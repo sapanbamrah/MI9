@@ -1,33 +1,27 @@
 // web.js
 var express = require("express");
 var logfmt = require("logfmt");
-// reference the http module so we can create a webserver
-var http = require("http");
 var fs = require('fs');
 
 var app = express();
 
 app.use(logfmt.requestLogger());
 
+// reference the http module so we can create a webserver
+var posteddata = '';
+app.post('/', function(request, response){
+	
+  request.on('data', function (chunk) {
+      posteddata += chunk;
+    });
 
-
-// create a server
-http.createServer(function(req, res) {
-    
-    var file = 'shows.json';
- 
-    fs.readFile(file, 'utf8', function (err, data) {
-      if (err) {
-        console.log('Error: ' + err);
-        return;
-      }
-      
-      var jsonResponse;
+  request.on('end', function () {
+    var jsonResponse;
       
         try{
-            data = JSON.parse(data);
+            var data = JSON.parse(posteddata);
             
-             var response = []; 
+            var response = []; 
               
                 for(var i=0; i < data['payload'].length ; i++) {
                     var desiredObject = data['payload'][i];
@@ -41,27 +35,14 @@ http.createServer(function(req, res) {
                 jsonResponse= {'response': response};
           }
         catch(err) {
-            jsonResponse = {"error": "Could not decode request: JSON parsing failed"};
+            jsonResponse = {"error": err};
         }
-    
-     
-      console.dir(jsonResponse);
-    });
-    
-res.send('Sapan Great');
- res.end('succes');
 
-}).listen(process.env.PORT, process.env.IP);
+      console.log(jsonResponse);
+  });
 
-    
-    
-   
-
-
-
-app.get('/', function(req, res) {
-  res.send('Hello Sapan World!');
 });
+
 
 var port = Number(process.env.PORT || 5000);
 app.listen(port, function() {
