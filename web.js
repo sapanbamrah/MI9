@@ -48,7 +48,7 @@ app.post('/filterjson', function(request, response){
 });
 
 app.get('/', function(request, response){
-	response.writeHead( 400, 'Response from Node Server', {'content-type' : 'application/json'});
+	response.setHeader( 400, 'Response from Node Server', {'content-type' : 'application/json'});
 	response.send(jsonResponse);
 });
 
