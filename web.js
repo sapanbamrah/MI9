@@ -11,7 +11,7 @@ var posteddata = '';
 var jsonResponse;
 
 //Recieve data from JSON file with curl command
-app.post('/', function(request, response){
+app.post('/filterjson', function(request, response){
 	
   request.on('data', function (chunk) {
       posteddata += chunk;
