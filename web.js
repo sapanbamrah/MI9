@@ -7,14 +7,16 @@ var app = express();
 
 app.use(logfmt.requestLogger());
 
-// reference the http module so we can create a webserver
 var posteddata = '';
+
+//Recieve data from JSON file with curl command
 app.post('/', function(request, response){
 	
   request.on('data', function (chunk) {
       posteddata += chunk;
     });
 
+//When All data is recieved, process the data to filter the fields
   request.on('end', function () {
     var jsonResponse;
       
@@ -27,6 +29,7 @@ app.post('/', function(request, response){
                     var desiredObject = data['payload'][i];
                      
                     if(desiredObject.drm === true && parseInt(desiredObject.episodeCount) > 0){
+                    	//Creating JSON from Filtered objects
                         response.push({'image': desiredObject.image.showImage, 'slug' : desiredObject.slug, 'title' : desiredObject.title});
                     }
                    
@@ -35,7 +38,7 @@ app.post('/', function(request, response){
                 jsonResponse= {'response': response};
           }
         catch(err) {
-            jsonResponse = {"error": err};
+            jsonResponse = {"error": "Could not decode request: JSON parsing failed"};
         }
 
       console.log(jsonResponse);
