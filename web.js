@@ -8,6 +8,7 @@ var app = express();
 app.use(logfmt.requestLogger());
 
 var posteddata = '';
+var jsonResponse;
 
 //Recieve data from JSON file with curl command
 app.post('/', function(request, response){
@@ -18,7 +19,7 @@ app.post('/', function(request, response){
 
 //When All data is recieved, process the data to filter the fields
   request.on('end', function () {
-    var jsonResponse;
+    
       
         try{
             var data = JSON.parse(posteddata);
@@ -46,7 +47,7 @@ app.post('/', function(request, response){
 
 });
 
-app.post('/', function(request, response){
+app.get('/', function(request, response){
 	response.send(jsonResponse);
 });
 
