@@ -1,1 +1,3 @@
 web: node web.js
+web:    lein run -m misapan.web
+worker: lein run -m misapan.worker
