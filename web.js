@@ -46,6 +46,9 @@ app.post('/', function(request, response){
 
 });
 
+app.post('/', function(request, response){
+	response.send(jsonResponse);
+});
 
 var port = Number(process.env.PORT || 5000);
 app.listen(port, function() {
