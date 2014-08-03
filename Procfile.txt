@@ -1,3 +1,2 @@
+web: npm start
 web: node web.js
-web:    lein run -m myapp.web
-worker: lein run -m myapp.worker
