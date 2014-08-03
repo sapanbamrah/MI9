@@ -1,0 +1,23 @@
+{
+  "name": "nodeMI9",
+  "version": "0.0.0",
+  "description": "Test",
+  "main": "web.js",
+  "scripts": {
+    "test": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://sapanbamrah@bitbucket.org/sapanbamrah/mi9.git"
+  },
+  "keywords": [
+    "test",
+    "nodejs"
+  ],
+  "author": "Sapan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.7.2",
+    "logfmt": "^1.1.2"
+  }
+}
